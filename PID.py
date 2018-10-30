@@ -6,7 +6,7 @@ plt.figure(2)
 
 Kp = 1 #this is the proportionality gain
 Kd = 1 #derivative gain
-Ki = 1 #integral gain
+Ki = 0.1 #integral gain
 dt = 0.01 #time step
 order = 2 #order of the system : 1st order -> you want to control speed but can control acceleration, 2nd Order -> you want to control position but can only control acceleration
 initial_pos = 0 #starting position of system
