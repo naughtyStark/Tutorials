@@ -15,7 +15,7 @@ target = 'constant' #change this to 'sine' to see what happens if you give a sin
 amplitude = 5 #pick any random value for the amplitude 
 kick = False #make this true to introduce derivative kick
 frequency = 10 #this applies to sinusoidal input
-mass = 1
+mass = 1 #mass of the object
 
 t = np.arange(0,10,dt)
 
