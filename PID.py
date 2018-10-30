@@ -4,16 +4,16 @@ import math as meth
 plt.figure(2)
 
 
-Kp = 1
-Kd = 1
-Ki = 1
-dt = 0.01
-order = 2 
-initial_pos = 0
-initial_vel = 0
-target = 'sine' #change this to 'sine' to see what happens if you give a sinusoidal input to the system
-amplitude = 5 #pick any random value
-kick = False
+Kp = 1 #this is the proportionality gain
+Kd = 1 #derivative gain
+Ki = 1 #integral gain
+dt = 0.01 #time step
+order = 2 #order of the system : 1st order -> you want to control speed but can control acceleration, 2nd Order -> you want to control position but can only control acceleration
+initial_pos = 0 #starting position of system
+initial_vel = 0 #starting velocity of system
+target = 'constant' #change this to 'sine' to see what happens if you give a sinusoidal input to the system
+amplitude = 5 #pick any random value for the amplitude 
+kick = False #make this true to introduce derivative kick
 frequency = 10 #this applies to sinusoidal input
 
 t = np.arange(0,10,dt)
