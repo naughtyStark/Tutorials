@@ -15,6 +15,7 @@ target = 'constant' #change this to 'sine' to see what happens if you give a sin
 amplitude = 5 #pick any random value for the amplitude 
 kick = False #make this true to introduce derivative kick
 frequency = 10 #this applies to sinusoidal input
+mass = 1
 
 t = np.arange(0,10,dt)
 
@@ -25,7 +26,7 @@ def limit(t,bound):
 		return -bound
 	return t
 
-def PID(t,Kp,Kd,Ki,dt=0.01,order = 2,pos=0,vel=0,target = 'constant',amplitude = 5,kick = False):
+def PID(t,Kp,Kd,Ki,dt=0.01,order = 2,pos=0,vel=0,target = 'constant',amplitude = 5,kick = False,mass = 1):
 	y = np.empty_like(t)
 	z = np.empty_like(t)
 	# initialize the state of the system (speed and all that)
@@ -50,21 +51,22 @@ def PID(t,Kp,Kd,Ki,dt=0.01,order = 2,pos=0,vel=0,target = 'constant',amplitude =
 		sError = limit(sError + error*dt,10) #integral of error 
 		lastError = error 
 
-		acc = Kp*error + Kd*dError + Ki*sError #PID equation
+		force = Kp*error + Kd*dError + Ki*sError #PID equation
+		acc = force/mass
 
 		#effect of PID output on the system
 		if(order == 2):
-			vel += acc*dt
-			current += vel*dt
+			vel += acc*dt #increment velocity
+			current += vel*dt #increment position
 		if(order == 1):
-			current += acc*dt
+			current += acc*dt #increment only velocity
 		y[i] = current
 		z[i] = set_point
 
 	return y,z
 
 
-position,set_point = PID(t, Kp, Kd, Ki, dt, order, initial_pos, initial_vel, target, amplitude, kick) 
+position,set_point = PID(t, Kp, Kd, Ki, dt, order, initial_pos, initial_vel, target, amplitude, kick,mass) 
 
 plt.title('PID')
 plt.xlabel('time')
